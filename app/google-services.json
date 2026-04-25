@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "290140902311",
+    "project_id": "bus-terminal-1a6c7",
+    "storage_bucket": "bus-terminal-1a6c7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290140902311:android:6538521e77ec7ee6599c82",
+        "android_client_info": {
+          "package_name": "com.busterminal.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "290140902311-f6oibnctkr1b6hc23oupb4d2midvtb2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCeWEdOKSt8Yp4i2CXgGf3SH-Bc6Fpelg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "290140902311-f6oibnctkr1b6hc23oupb4d2midvtb2h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
