@@ -109,8 +109,20 @@ class AuthViewModel @Inject constructor(
         gender: String = "",
         dateOfBirth: String = "",
         ownerName: String = "",
-        registrationNumber: String = ""
+        registrationNumber: String = "",
+        adminCode: String = ""
     ) {
+        // Security check: Validate admin invite code on the backend/ViewModel level before account creation
+        if (role == Constants.ROLE_ADMIN && adminCode != Constants.ADMIN_INVITE_CODE) {
+            _uiState.update {
+                it.copy(
+                    isLoading = false,
+                    error = "Invalid admin invite code"
+                )
+            }
+            return
+        }
+
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
             when (val result = authRepository.registerWithEmail(
