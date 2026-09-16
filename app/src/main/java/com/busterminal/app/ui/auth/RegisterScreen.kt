@@ -25,7 +25,7 @@ import com.busterminal.app.util.Constants
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(
-    onRegister: (name: String, email: String, phone: String, password: String, role: String, companyName: String, companyAddress: String, city: String, gender: String, dateOfBirth: String, ownerName: String, registrationNumber: String) -> Unit,
+    onRegister: (name: String, email: String, phone: String, password: String, role: String, companyName: String, companyAddress: String, city: String, gender: String, dateOfBirth: String, ownerName: String, registrationNumber: String, adminCode: String) -> Unit,
     onNavigateToLogin: () -> Unit,
     isLoading: Boolean = false,
     error: String? = null,
@@ -379,7 +379,7 @@ fun RegisterScreen(
 
                     Button(
                         onClick = {
-                            onRegister(name, email, phone, password, selectedRole, companyName, companyAddress, city, gender, dateOfBirth, ownerName, registrationNumber)
+                            onRegister(name, email, phone, password, selectedRole, companyName, companyAddress, city, gender, dateOfBirth, ownerName, registrationNumber, adminCode)
                         },
                         modifier = Modifier
                             .fillMaxWidth()

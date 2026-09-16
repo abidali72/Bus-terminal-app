@@ -119,7 +119,7 @@ fun AuthNavGraph(authViewModel: AuthViewModel) {
             RegisterScreen(
                 isLoading = authState.isLoading,
                 error = authState.error,
-                onRegister = { name, email, phone, pass, role, compName, compAddr, city, gender, dob, ownerName, regNum ->
+                onRegister = { name, email, phone, pass, role, compName, compAddr, city, gender, dob, ownerName, regNum, adminCode ->
                     authViewModel.register(
                         name = name,
                         email = email,
@@ -132,7 +132,8 @@ fun AuthNavGraph(authViewModel: AuthViewModel) {
                         gender = gender,
                         dateOfBirth = dob,
                         ownerName = ownerName,
-                        registrationNumber = regNum
+                        registrationNumber = regNum,
+                        adminCode = adminCode
                     )
                 },
                 onNavigateToLogin = { navController.popBackStack() },
