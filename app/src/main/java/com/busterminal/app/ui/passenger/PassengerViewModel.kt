@@ -7,6 +7,9 @@ import com.busterminal.app.domain.repository.*
 import com.busterminal.app.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -200,16 +203,20 @@ class PassengerViewModel @Inject constructor(
                     }
                     is Resource.Success -> {
                         val schedules = result.data
-                        // Fetch all unique bus IDs
-                        val busIds = schedules.map { it.busId }.distinct()
-                        val busMap = mutableMapOf<String, Bus>()
-                        for (busId in busIds) {
-                            if (busId.isNotEmpty()) {
-                                val busResult = busRepository.getBusById(busId)
-                                if (busResult is Resource.Success) {
-                                    busMap[busId] = busResult.data
+                        // Fetch all unique bus IDs concurrently instead of sequentially to reduce latency
+                        // Performance impact: Reduces network latency overhead from O(N * T) to O(T)
+                        val busIds = schedules.map { it.busId }.filter { it.isNotEmpty() }.distinct()
+                        val busMap = coroutineScope {
+                            busIds.map { busId ->
+                                async {
+                                    val busResult = busRepository.getBusById(busId)
+                                    if (busResult is Resource.Success) {
+                                        busId to busResult.data
+                                    } else {
+                                        null
+                                    }
                                 }
-                            }
+                            }.awaitAll().filterNotNull().toMap()
                         }
 
                         // Group by company
